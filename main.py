@@ -8,20 +8,19 @@ if not cap.isOpened():
     exit()
 
 while True:
-    ret, frame = cap.read()
+ ret, frame = cap.read()
 
-if not ret:
-    break
+ if not ret:
     print("Cant recieve frame...")
+    break
 
 
 
+ gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
-gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+ cv.imshow('frame',gray)
 
-cv.imshow('frame',gray)
-
-if cv.waitkey(1) == ord('q'):
+ if cv.waitKey(1) == ord('q'):
     break
 
 cap.release()
