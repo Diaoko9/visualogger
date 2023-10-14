@@ -1,5 +1,7 @@
 import numpy as np
 import cv2 as cv
+import tesserocr as tesser
+
 
 #pipeline = 'device=/dev/video0 ! camera-id=0 ! video/x-h264, format=YUY2 ! videoconvert ! format=BGR ! appsink drop=1'
 #pipeline = "device=/dev/video0 ! camera-id=0 ! autovideosink"
@@ -21,7 +23,7 @@ while True:
 
  gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
- cv.imshow('frame',frame)
+ cv.imshow('frame',gray)
 
  if cv.waitKey(1) == ord('q'):
     break
