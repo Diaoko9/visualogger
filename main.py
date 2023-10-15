@@ -1,7 +1,6 @@
 import numpy as np
 import cv2 as cv
-import tesserocr as tesser
-
+from pytesseract import pytesseract
 
 #pipeline = 'device=/dev/video0 ! camera-id=0 ! video/x-h264, format=YUY2 ! videoconvert ! format=BGR ! appsink drop=1'
 #pipeline = "device=/dev/video0 ! camera-id=0 ! autovideosink"
@@ -30,3 +29,7 @@ while True:
 
 cap.release()
 cv.destroyAllwindows()
+
+
+def tesseract():
+    
