@@ -1,6 +1,9 @@
 import numpy as np
 import cv2 as cv
+<<<<<<< HEAD
 from pytesseract import pytesseract
+=======
+>>>>>>> parent of bba72f8 (1)
 
 #pipeline = 'device=/dev/video0 ! camera-id=0 ! video/x-h264, format=YUY2 ! videoconvert ! format=BGR ! appsink drop=1'
 #pipeline = "device=/dev/video0 ! camera-id=0 ! autovideosink"
@@ -22,7 +25,7 @@ while True:
 
  gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
- cv.imshow('frame',gray)
+ cv.imshow('frame',frame)
 
  if cv.waitKey(1) == ord('q'):
     break
