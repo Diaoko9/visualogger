@@ -8,7 +8,7 @@ from pytesseract import pytesseract
 #pipeline = "device=/dev/video0 ! camera-id=0 ! autovideosink"
 
 #cap = cv.VideoCapture(pipeline, cv.CAP_GSTREAMER)
-cap = cv.VideoCapture(-1)
+cap = cv.VideoCapture(2)
 if not cap.isOpened():
     print("Cannot open Camera")
     exit()
@@ -16,9 +16,35 @@ if not cap.isOpened():
 counter = 0
 
 while True:
- ret, frame = cap.read()
- counter+=1
+    ret, frame = cap.read()
+ 
+    h, w,_ = frame.shape
+    x1, y1, w1, h1 = 0, 0, h, w
 
+
+    imchar = pytesseract.image_to_string(frame)
+    imbox  = pytesseract.image_to_boxes(frame)
+
+    for boxes in imbox.splitlines() :
+        
+        boxes = boxes.split()
+        frame = cv.rectangle(frame, (int(boxes[1]), h - int(boxes[2])), (int(boxes[3]), h - int(boxes[4])), (0, 255, 0), 2)
+        image = cv.putText(frame, imchar, (100,100), cv.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
+
+
+    #print(imchar)
+    cv.imshow('frame',image)
+
+    if cv.waitKey(1) == ord('q'):
+        break
+
+cap.release()
+cv.destroyWindow('frame')
+
+
+
+'''
+ counter+=1
  if ((counter%20)==0):
         
     imgH, imgW,_ = frame.shape
@@ -28,6 +54,7 @@ while True:
     imgchar = pytesseract.image_to_string(frame)
         
     imgboxes = pytesseract.image_to_boxes(frame)
+
         
     for boxes in imgboxes.splitlines():
         boxes = boxes.split(' ')
@@ -37,16 +64,10 @@ while True:
         cv.putText(frame, imgchar, (x1 + int(w1/50), y1 + int(h1/50)), cv.FONT_HERSHEY_SIMPLEX, 0.7, (255,0,0), 2)
         
         font = cv.FONT_HERSHEY_SIMPLEX
-
+'''
  #gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
  
 
 
- cv.imshow('frame',frame)
-
- if cv.waitKey(1) == ord('q'):
-    break
-
-cap.release()
-cv.destroyAllwindows()
+    
