@@ -5,7 +5,8 @@ from skimage.feature import hog
 from sklearn.model_selection import train_test_split as tts
 from sklearn.metrics import accuracy_score
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.externals import joblib
+#from sklearn.externals import joblib
+import joblib
 
 # read the image
 img = cv.imread('digits.png')
@@ -19,8 +20,10 @@ dataset = []
 for i in range(50):
     for j in range(100):
         feature = hog(cells[i][j],
-                      pixels_per_cells=(10, 10),
+                      pixels_per_cell=(10, 10),
                       cells_per_block=(1, 1))
+        #fd, feature = hog()
+
         dataset.append(feature)
 dataset = np.array(dataset, 'float64')
 
@@ -31,7 +34,7 @@ for i in range(10):
 
 # KNN algorithms
 clf = KNeighborsClassifier()
-x_train, x_test, y_train, y_test = tts(dataset, labels, test_size=0.3)
+x_train, x_test, y_train, y_test = tts(dataset, labels, test_size=0.2)
 clf.fit(x_train, y_train)
 
 # print accuracy score
